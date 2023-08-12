@@ -13,9 +13,6 @@ pygame.display.set_caption("테스트 게임")
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-# 오브젝트 상수 설정
-OBJ_SPEED = 10
-
 # 캐릭터 설정
 character = pygame.image.load("./character.png")
 character = pygame.transform.scale(character, (50, 50)) # 캐릭터 크기
@@ -47,6 +44,7 @@ carrot_y = random.randint(0, SCREEN_HEIGHT - obstacle_height)
 font = pygame.font.Font(None, 36) # 폰트 설정
 score = 0
 start_time = pygame.time.get_ticks() // 100
+speed = 0
 
 # 장애물 충돌 시
 game_over = False
@@ -59,6 +57,10 @@ ok_rect = ok_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
 # 게임 루프
 running = True
 clock = pygame.time.Clock() # fps clock 생성
+
+bgm = pygame.mixer.Sound("./bgm.mp3")
+bgm.play(-1)
+coin_sound_effect = pygame.mixer.Sound("./coinSoundEffect.mp3")
 
 while running:
     screen.fill(WHITE)
@@ -73,31 +75,34 @@ while running:
             
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            character_x -= OBJ_SPEED
+            character_x -= 10 + speed
             if character_x < 0:  # 화면 왼쪽 벽을 벗어나지 않도록 제한
                 character_x = 0
         if keys[pygame.K_RIGHT]:
-            character_x += OBJ_SPEED
+            character_x += 10 + speed
             if character_x > SCREEN_WIDTH - character_width:  # 화면 오른쪽 벽을 벗어나지 않도록 제한
                 character_x = SCREEN_WIDTH - character_width
         if keys[pygame.K_UP]:
-            character_y -= OBJ_SPEED
+            character_y -= 10 + speed
             if character_y < 0:  # 화면 위쪽 벽을 벗어나지 않도록 제한
                 character_y = 0
         if keys[pygame.K_DOWN]:
-            character_y += OBJ_SPEED
+            character_y += 10 + speed
             if character_y > SCREEN_HEIGHT - character_height:
                 character_y = SCREEN_HEIGHT - character_height
     
+    # 게임 난이도
+    
+    
     # 방해물 이동
     if obstacle_x > character_x:
-        obstacle_x -= 3
+        obstacle_x -= 3 + speed
     if obstacle_x < character_x:
-        obstacle_x += 3
+        obstacle_x += 3 + speed
     if obstacle_y > character_y:
-            obstacle_y -= 3
+        obstacle_y -= 3 + speed
     if obstacle_y < character_y:
-        obstacle_y += 3
+        obstacle_y += 3 + speed
 
     # 방해물 스크린 제한
     if obstacle_x < 0:
@@ -114,14 +119,16 @@ while running:
     obstacle_rect = pygame.Rect(obstacle_x, obstacle_y, obstacle_width, obstacle_height)
     carrot_rect = pygame.Rect(carrot_x, carrot_y, carrot_width, carrot_height)
     
-    # 오브젝트 충돌
+    # 점수 획득
     if character_rect.colliderect(carrot_rect):
         score += 1
-        carrot_x = random.randint(0, SCREEN_WIDTH)
-        carrot_y = random.randint(0, SCREEN_HEIGHT)
+        carrot_x = random.randint(30, SCREEN_WIDTH-30)
+        carrot_y = random.randint(30, SCREEN_HEIGHT-30)
+        coin_sound_effect.play()
     
+    # 장애물 충돌 => 게임 오버
     if character_rect.colliderect(obstacle_rect): # 충돌 시 게임 종료
-        # running = False
+        bgm.stop()
         game_over = True
         
     if game_over:

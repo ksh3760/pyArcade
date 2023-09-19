@@ -47,12 +47,11 @@ start_time = pygame.time.get_ticks() // 100
 speed = 0
 
 # 게임 오버 (장애물 충돌 시)
-game_over = False
+is_game_over = False
 game_over_text = font.render("Game Over", True, (255, 0, 0))
 game_over_rect = game_over_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-ok_text = font.render("OK", True, (0, 0, 0))
-ok_rect = ok_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
-
+# ok_text = font.render("OK", True, (0, 0, 0))
+# ok_rect = ok_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
 
 # 게임 루프
 running = True
@@ -70,7 +69,7 @@ while running:
             running = False
     
     # 게임 오버 시
-    if not game_over:
+    if not is_game_over:
         current_time = pygame.time.get_ticks() // 100 - start_time
         
         keys = pygame.key.get_pressed()
@@ -126,14 +125,14 @@ while running:
     # 장애물 충돌
     if character_rect.colliderect(enemy_rect): # 충돌 시 게임 종료
         bgm.stop()
-        game_over = True
-        
-    if game_over:
+        is_game_over = True
         screen.blit(game_over_text, game_over_rect)
-        pygame.draw.rect(screen, WHITE, ok_rect)
-        screen.blit(ok_text, ok_rect)
         
-    if game_over:
+    # if is_game_over:
+        # pygame.draw.rect(screen, WHITE, ok_rect)
+        # screen.blit(ok_text, ok_rect)
+        
+    if is_game_over:
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 running = False

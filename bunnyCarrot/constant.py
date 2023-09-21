@@ -8,10 +8,10 @@ OBJ_SIZE      = 50
 FPS           = 60
 
 # path
-CHARACTER_IMG_PATH = "./character.png"
-ENEMY_IMG_PATH     = "./enemy.png"
-CARROT_IMG_PATH    = "./carrot.png"
+CHARACTER_IMG_PATH = "./img/character.png"
+ENEMY_IMG_PATH     = "./img/enemy.png"
+CARROT_IMG_PATH    = "./img/carrot.png"
 
-BGM_PATH               = "./bgm.mp3"
-COIN_SOUND_EFFECT_PATH = "./coinSoundEffect.mp3"
-GAME_OVER_SOUND_PATH = "./game_over.mp3"
+BGM_PATH               = "./sound/bgm.mp3"
+COIN_SOUND_EFFECT_PATH = "./sound/coinSoundEffect.mp3"
+GAME_OVER_SOUND_PATH = "./sound/game_over.mp3"

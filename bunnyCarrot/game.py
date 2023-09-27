@@ -98,21 +98,21 @@ class Game:
                 self.enemy_y += 3 + self.speed
 
             # enemy screen limit
-            if self.enemy_x < 0:
-                self.enemy_x = 0
-            if self.enemy_x >  SCREEN_WIDTH - self.enemy_width:
-                self.enemy_x = SCREEN_WIDTH - self.enemy_width
-            if self.enemy_y < 0:
-                self.enemy_y = 0
-            if self.enemy_y > SCREEN_HEIGHT - self.enemy_height:
-                self.enemy_y = SCREEN_HEIGHT - self.enemy_height
+            # if self.enemy_x < 0:
+            #     self.enemy_x = 0
+            # if self.enemy_x >  SCREEN_WIDTH - self.enemy_width:
+            #     self.enemy_x = SCREEN_WIDTH - self.enemy_width
+            # if self.enemy_y < 0:
+            #     self.enemy_y = 0
+            # if self.enemy_y > SCREEN_HEIGHT - self.enemy_height:
+            #     self.enemy_y = SCREEN_HEIGHT - self.enemy_height
             
             # rectangle 정의 (오브젝트 판정)
             character_rect = pygame.Rect(self.character_x, self.character_y, self.character_width, self.character_height)
             enemy_rect = pygame.Rect(self.enemy_x, self.enemy_y, self.enemy_width, self.enemy_height)
             carrot_rect = pygame.Rect(self.carrot_x, self.carrot_y, self.carrot_width, self.carrot_height)
             
-            # get socre
+            # character gets socre(carrot)
             if character_rect.colliderect(carrot_rect):
                 self.score += 1
                 self.carrot_x = random.randint(30, SCREEN_WIDTH-30)

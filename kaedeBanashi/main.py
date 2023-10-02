@@ -42,9 +42,9 @@ while running:
         character_dx = -5  
     elif keys[pygame.K_RIGHT]:
         character_dx = 5
-    elif keys[pygame.K_UP] and not jumping:
-            jumping = True
-            character_dy = jump_power
+    # elif keys[pygame.K_UP] and not jumping:
+    #         jumping = True
+    #         character_dy = jump_power
     else:
         character_dx = 0
 
